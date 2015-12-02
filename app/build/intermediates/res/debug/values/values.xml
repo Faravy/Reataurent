@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/E:/Restaurent/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="apptheme_color">#DA4A38</color>
+    <color name="default_color">#ffffff</color>
+    <color name="pressed_color">#4d90fe</color>
+    <!-- From: file:/E:/Restaurent/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/E:/Restaurent/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">Restaurant Order Taking</string>
+    <string name="base_url">http://apps.mediasoftbd.com/dc/Api/</string>
+    <string name="base_url1">http://45.64.137.42/dc/Api/</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="table1">Table-1</string>
+    <string name="title_activity_confirm_order">Confirm Order</string>
+    <string name="title_activity_demo">Demo</string>
+    <string name="title_activity_finisishing">Finising Order</string>
+    <string name="title_activity_item_selection">Item Selection</string>
+    <string name="title_activity_member_selection">Member Selection</string>
+    <string name="title_activity_member_type">Member Type Selction</string>
+    <string name="title_activity_menu">Area Selection</string>
+    <string name="title_activity_option_selection">Option Selection</string>
+    <string name="title_activity_sales_window">Sales Window</string>
+    <string name="title_activity_table_selection">Table Selection</string>
+    <!-- From: file:/E:/Restaurent/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_holo</item>
+        <item name="android:fastScrollOverlayPosition">atThumb</item>
+        <item name="android:fastScrollTextColor">@color/apptheme_color</item>
+        <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_thumb_pressed_holo</item>
+        <item name="android:fastScrollPreviewBackgroundRight">@drawable/bg_default_focused_holo_light</item>
+    </style>
+</resources>

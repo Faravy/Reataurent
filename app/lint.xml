@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <issue id="DefaultLocale" severity="ignore" />
+    <issue id="InflateParams" severity="ignore">
+        <ignore path="src/nerdcastle/faravy/restaurant/ItemSelectionActivity.java" />
+    </issue>
+    <issue id="NewApi" severity="ignore">
+        <ignore path="src/nerdcastle/faravy/restaurant/MainActivity.java" />
+    </issue>
+</lint>

@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="5dp" >
+
+    <Button
+        android:id="@+id/btnPool"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:background="@drawable/buttonpool"
+        android:text="Pool" />
+
+    <Button
+        android:id="@+id/btnGarden"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:background="@drawable/buttongarden"
+        android:text="Garden Cafe" />
+
+    <Button
+        android:id="@+id/btnBar"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:background="@drawable/buttonbar"
+        android:text="Main Bar" />
+
+</LinearLayout><!-- From: file:/E:/Restaurent/app/src/main/res/layout/activity_menu.xml -->

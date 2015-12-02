@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <ExpandableListView
+        android:id="@+id/exp_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/holo_blue_dark"
+        android:dividerHeight="2dp" />
+
+    <CheckBox
+        android:id="@+id/isService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Room Service"
+        android:padding="30dp"
+        android:textSize="25sp"
+        android:checked="false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sendKot"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:onClick="sendKot"
+            android:background="@drawable/button"
+            android:textStyle="bold"
+            android:text="Send Kot" />
+
+        <Button
+            android:id="@+id/orderReview"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:onClick="orderReview"
+            android:background="@drawable/button"
+            android:textStyle="bold"
+            android:text="Order Review" />
+
+        <Button
+            android:id="@+id/continueOrder"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="continueOrder"
+            android:background="@drawable/button"
+            android:textStyle="bold"
+            android:text="Continue order" />
+
+        <Button
+            android:id="@+id/modifyOrder"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="modifyOrder"
+            android:background="@drawable/button"
+            android:textStyle="bold"
+            android:text="Modify order" />
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/E:/Restaurent/app/src/main/res/layout/activity_finisishing.xml -->

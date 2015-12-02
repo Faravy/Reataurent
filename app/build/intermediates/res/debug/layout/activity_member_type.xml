@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="5dp" >
+
+    <Button
+        android:id="@+id/btnMember"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/buttonpool"
+        android:text="Member" />
+
+    <Button
+        android:id="@+id/btnGuest"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/buttongarden"
+        android:text="Guest" />
+
+    <Button
+        android:id="@+id/btnHotelGuest"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/buttonbar"
+        android:text="Hotel Guest" />
+
+</LinearLayout><!-- From: file:/E:/Restaurent/app/src/main/res/layout/activity_member_type.xml -->

@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TableLayout
+            android:id="@+id/options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1" >
+
+            <TableRow
+                android:id="@+id/tableRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 >
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/submitOption"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:text="Ok"
+            android:background="@drawable/button"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/cancelOption"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:text="Cancel"
+            android:background="@drawable/button"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/E:/Restaurent/app/src/main/res/layout/fragment_option_selection.xml -->

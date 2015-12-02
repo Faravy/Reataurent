@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="nerdcastle.faravy.activity.MainActivity" >
+
+   <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Log Out"
+        android:showAsAction="ifRoom"/>
+
+</menu>
+<!-- From: file:/E:/Restaurent/app/src/main/res/menu/main.xml -->
