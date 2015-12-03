@@ -64,7 +64,7 @@ public class SalesWindowActivity extends Activity  {
 		ColorDrawable colorDrawable = new ColorDrawable(
 				Color.parseColor("#ff9800"));//0080FF
 		ab.setBackgroundDrawable(colorDrawable);
-		ab.setDisplayHomeAsUpEnabled(true);
+		//ab.setDisplayHomeAsUpEnabled(true);
 
 		SessionManager session = new SessionManager(this);
 		baseUrl = session.getUserData();

@@ -218,13 +218,12 @@ public class OptionSelectionFragment extends Fragment implements
 								
 								orderBtn.setOnClickListener(new OnClickListener() {
 
-									
 
 									@Override
 									public void onClick(View v) {
-										
+
 										if (!v.isSelected()) {
-											
+
 											TempSales.getInstance()
 													.setOptionName(optionName);
 											TempSales.getInstance()
@@ -254,10 +253,10 @@ public class OptionSelectionFragment extends Fragment implements
 													tempClick + 1);
 											quantity = 1;
 											sendOptionInfo();
-											
+
 											v.setSelected(true);
 											v.setBackgroundResource(R.drawable.selector);
-											
+
 										} else {
 											TempSales.getInstance()
 													.setOptionName(optionName);
@@ -267,7 +266,7 @@ public class OptionSelectionFragment extends Fragment implements
 													.setOptionGroupName(
 															groupName);
 
-											
+
 											((OrderButton) v).setText(optionName);
 
 											Toast.makeText(
@@ -275,21 +274,18 @@ public class OptionSelectionFragment extends Fragment implements
 													optionName + "  Deselected",
 													Toast.LENGTH_SHORT).show();
 
-											
 
-																						
-
-												sendDeselectOptionInfo();
+											sendDeselectOptionInfo();
 
 											v.setSelected(false);
 											v.setBackgroundResource(R.drawable.buttontable);
-											
+
 										}
 									}
 								});
 
 								orderBtn.setOnLongClickListener(new OnLongClickListener() {
-									
+
 
 									@Override
 									public boolean onLongClick(final View v) {
@@ -332,10 +328,10 @@ public class OptionSelectionFragment extends Fragment implements
 															}
 														}
 
-														
-														String data=editText.getText().toString().trim();
-					
-														if (data.length() ==0) {
+
+														String data = editText.getText().toString().trim();
+
+														if (data.length() == 0) {
 															Toast.makeText(
 																	getActivity(),
 																	"Invalid quantity",
@@ -347,20 +343,20 @@ public class OptionSelectionFragment extends Fragment implements
 																	.getText()
 																	.toString() == "" ? 0
 																	: Integer
-																			.parseInt(editText
-																					.getText()
-																					.toString());
-													
+																	.parseInt(editText
+																			.getText()
+																			.toString());
+
 															quantity = inputQuantity;
 															// remove previous data with same option id
-															if(quantity>0)
-															sendDeselectOptionInfo();
-										
+															if (quantity > 0)
+																sendDeselectOptionInfo();
+
 															((OrderButton) v).setText(optionName
 																	+ " - "
 																	+ String.valueOf(inputQuantity));
 															//((OrderButton) v).setTextColor(Color.parseColor("#000000"));
-															
+
 
 															Toast.makeText(
 																	getActivity(),
@@ -370,22 +366,22 @@ public class OptionSelectionFragment extends Fragment implements
 																			+ " Selected",
 																	Toast.LENGTH_SHORT)
 																	.show();
-															
+
 															int tempClick = TempOptionData.clickItem
 																	.get(pos);
 
 															TempOptionData.clickItem
-																	.set(pos,tempClick+inputQuantity);
+																	.set(pos, tempClick + inputQuantity);
 
-															
+
 															for (int i = 0; i < inputQuantity; i++) {
 
 																sendOptionInfo();
 
 															}
-															v.setSelected(true);															
+															v.setSelected(true);
 															v.setBackgroundResource(R.drawable.selector);
-															
+
 
 														}
 													}
@@ -504,8 +500,8 @@ public class OptionSelectionFragment extends Fragment implements
 
 			else {
 
-				Toast.makeText(getActivity(), "Your Selection is Wrong",
-						Toast.LENGTH_LONG).show();
+				//Toast.makeText(getActivity(), "Your Selection is Wrong",Toast.LENGTH_LONG).show();
+				warning("Your Selection is Wrong");
 				// GroupCollection.urlList.clear();
 			}
 
@@ -517,6 +513,20 @@ public class OptionSelectionFragment extends Fragment implements
 		default:
 			break;
 		}
+
+	}
+	private void warning(String message){
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle(message);
+		builder.setIcon(R.drawable.ic_launcher);
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		builder.create().show();
 
 	}
 

@@ -99,7 +99,7 @@ public class AreaSelectionActivity extends Activity implements OnClickListener {
 		
 	}
 
-	public void selectArea(String area) {
+	/*public void selectArea(String area) {
 		StringRequest stringrequest = new StringRequest(Method.GET,
 				baseUrl + getTableByAreaId + area.replaceAll(" ", "%20"),
 				new Response.Listener<String>() {
@@ -143,7 +143,7 @@ public class AreaSelectionActivity extends Activity implements OnClickListener {
 				});
 
 		AppController.getInstance().addToRequestQueue(stringrequest);
-	}
+	}*/
 	
 	@Override
 	public void onBackPressed() {

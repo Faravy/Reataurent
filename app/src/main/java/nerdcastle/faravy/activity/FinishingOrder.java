@@ -231,7 +231,7 @@ public class FinishingOrder extends Activity {
 		startActivity(new Intent(getApplicationContext(),
 				MemberSelectionActivity.class));//MemberTypeActivity
 		Order.getInstance().setCheck(0);
-		finish();
+				finish();
 
 	}
 

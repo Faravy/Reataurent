@@ -507,7 +507,8 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 		}
 		else
 		
-		Toast.makeText(getActivity(), "You can't modify options", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getActivity(), "You can't modify options", Toast.LENGTH_SHORT).show();
+		warning("You can't modify options");
 
 		}
 
@@ -584,7 +585,8 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 		}
 		else
 		
-		Toast.makeText(getActivity(), "You can't modify options", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getActivity(), "You can't modify options", Toast.LENGTH_SHORT).show();
+		warning("You can't modify options");
 
 		}
 
@@ -780,7 +782,8 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 	   String itemSl=TempSales.getInstance().getItemSL();
 	  
 	   if (itemSl=="" || itemSl==null) {
-		   Toast.makeText(getActivity(), "Select item first", Toast.LENGTH_SHORT).show();
+		  // Toast.makeText(getActivity(), "Select item first", Toast.LENGTH_SHORT).show();
+		   warning("Select item first");
 		
 	}else{
 		 
