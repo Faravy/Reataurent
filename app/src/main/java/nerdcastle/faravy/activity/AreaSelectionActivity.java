@@ -17,8 +17,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -196,4 +199,6 @@ public class AreaSelectionActivity extends Activity implements OnClickListener {
 		
 	}
 
+
 }
+

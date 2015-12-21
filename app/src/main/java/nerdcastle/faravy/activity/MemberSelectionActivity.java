@@ -210,10 +210,14 @@ public class MemberSelectionActivity extends Activity {
 									addonLayout.addView(tableRow);
 								}
 
+								TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT,1);
+
+
 								final OrderButton orderBtn = new OrderButton(
 										getApplicationContext());
 								
 								orderBtn.setText(cusName);
+								orderBtn.setLayoutParams(params);
 								orderBtn.setTextColor(Color
 										.parseColor("#FFFFFF"));
 								orderBtn.setBackgroundResource((R.drawable.selector));

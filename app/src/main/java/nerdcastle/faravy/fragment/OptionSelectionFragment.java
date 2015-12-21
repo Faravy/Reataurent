@@ -22,9 +22,11 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +34,8 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -42,14 +46,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-public class OptionSelectionFragment extends Fragment implements
-		OnClickListener {
+public class OptionSelectionFragment extends Fragment implements OnClickListener {
+
 	View rootView;
 	TableLayout tableLayout;
 	TableRow tableRow = null;
 	JSONArray jsonArray;
 	OrderButton orderBtn;
-	int enabledButton;
 	int itemId;
 	String getGroupByItemId = "/dc/Api/ItemsOptions/GetGroupByItemID?itemID=";
 	String getAllOptions = "/dc/Api/ItemsOptions/GetAllOptionByItemGroupID?itemID=";
@@ -65,6 +68,7 @@ public class OptionSelectionFragment extends Fragment implements
 
 	Button submitOption;
 	Button cancelOption;
+	GridView gridView;
 
 	List<String> minValueList = new ArrayList<String>();
 
@@ -183,9 +187,15 @@ public class OptionSelectionFragment extends Fragment implements
 
 								TableRow titleRow = new TableRow(getActivity());
 								TextView tv = new TextView(getActivity());
-								tv.setTextSize(20);
-								tv.setText("Option " + optionCount + ": Min: "
-										+ min + ", Max: " + max);
+								tv.setTextSize(25);
+								tv.setPadding(5, 5, 5, 5);
+								TableRow.LayoutParams params= new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+								params.setMargins(0, 0, 5, 5);
+								tv.setLayoutParams(params);
+								tv.setGravity(Gravity.CENTER_VERTICAL);
+								tv.setTextColor(getResources().getColor(android.R.color.holo_blue_dark));
+								tv.setText("Option " + optionCount + " : Min : " + min + ", Max : " + max);
+								tv.setTypeface(null, Typeface.BOLD);
 								titleRow.addView(tv);
 
 								tableLayout.addView(titleRow);
@@ -194,30 +204,27 @@ public class OptionSelectionFragment extends Fragment implements
 							}
 
 							for (i = 0; i < jsonArray.length(); i++) {
-								final String optionName = jsonArray
-										.getJSONObject(i).getString(
-												"OptionsName");
+								final String optionName = jsonArray.getJSONObject(i).getString("OptionsName");
 
-								final String optionsId = jsonArray
-										.getJSONObject(i)
-										.getString("OptionsID");
+								final String optionsId = jsonArray.getJSONObject(i).getString("OptionsID");
 
 								if (i % 2 == 0) {
 									tableRow = new TableRow(getActivity());
 									tableLayout.addView(tableRow);
 								}
+								TableRow.LayoutParams tvPar = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT,1);
 
+									//	tableRow = new TableRow(getActivity());
 								orderBtn = new OrderButton(getActivity());
-
 								orderBtn.setText(optionName);
-								orderBtn.setTextColor(Color
-										.parseColor("#FFFFFF"));
+								orderBtn.setLayoutParams(tvPar);
+								orderBtn.setTextColor(Color.parseColor("#FFFFFF"));
 								orderBtn.setBackgroundResource((R.drawable.selector));
 								tableRow.addView(orderBtn);
-								
-								
-								orderBtn.setOnClickListener(new OnClickListener() {
+								//tableLayout.removeAllViews();
+								//tableLayout.addView(tableRow);
 
+								orderBtn.setOnClickListener(new OnClickListener() {
 
 									@Override
 									public void onClick(View v) {
@@ -232,9 +239,9 @@ public class OptionSelectionFragment extends Fragment implements
 													.setOptionGroupName(
 															groupName);
 
-											Toast.makeText(getActivity(),
+											/*Toast.makeText(getActivity(),
 													optionName + "  Selected",
-													Toast.LENGTH_SHORT).show();
+													Toast.LENGTH_SHORT).show();*/
 
 											int pos = 0;
 											for (int i = 0; i < TempOptionData.groupId
@@ -269,10 +276,10 @@ public class OptionSelectionFragment extends Fragment implements
 
 											((OrderButton) v).setText(optionName);
 
-											Toast.makeText(
+										/*	Toast.makeText(
 													getActivity(),
 													optionName + "  Deselected",
-													Toast.LENGTH_SHORT).show();
+													Toast.LENGTH_SHORT).show();*/
 
 
 											sendDeselectOptionInfo();
@@ -332,11 +339,10 @@ public class OptionSelectionFragment extends Fragment implements
 														String data = editText.getText().toString().trim();
 
 														if (data.length() == 0) {
-															Toast.makeText(
-																	getActivity(),
-																	"Invalid quantity",
-																	Toast.LENGTH_SHORT)
-																	.show();
+															warning("Invalid quantity");
+
+														} else if (data.equals("0")) {
+															warning("Invalid quantity");
 
 														} else {
 															int inputQuantity = editText
@@ -349,8 +355,11 @@ public class OptionSelectionFragment extends Fragment implements
 
 															quantity = inputQuantity;
 															// remove previous data with same option id
-															if (quantity > 0)
-																sendDeselectOptionInfo();
+															if (quantity <= 0) {
+																warning("Invalid Quantity");
+																return;
+															}
+															sendDeselectOptionInfo();
 
 															((OrderButton) v).setText(optionName
 																	+ " - "

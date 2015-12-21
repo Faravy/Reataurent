@@ -54,12 +54,12 @@ public class AddonsListAdapter extends ArrayAdapter<String> implements
 	}
 
 	public int getPositionForSection(int section) {
-		Log.d("getPositionForSection section", "" + section);
+		//Log.d("getPositionForSection section", "" + section);
 		return mapIndex.get(sections[section]);
 	}
 
 	public int getSectionForPosition(int position) {
-		Log.d("getSectionForPosition position", "" + position);
+		//Log.d("getSectionForPosition position", "" + position);
 		return 0;
 	}
 

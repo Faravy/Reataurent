@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,6 +54,7 @@ public class SalesWindowActivity extends Activity  {
 	LinearLayout linearLayout;
 	String baseUrl;
 	private ProgressDialog proDialog;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -249,5 +249,7 @@ public class SalesWindowActivity extends Activity  {
 	public void onBackPressed() {
 
 	}
+
+
 
 }

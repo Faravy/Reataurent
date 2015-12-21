@@ -17,10 +17,8 @@ import android.widget.TextView;
 
 public class ListViewAdapter extends ArrayAdapter<String> {
 
-	Activity mContext = null;
 	Context context;
 	ArrayList<String> itemList = null;
-	LinearLayout layout;
 
 	public ListViewAdapter(Context context, ArrayList<String> itemList) {
 		super(context, R.layout.adapter_listview, itemList);

@@ -31,17 +31,18 @@ public final class R {
         public static final int buttontable=0x7f020008;
         public static final int delete=0x7f020009;
         public static final int deselect=0x7f02000a;
-        public static final int fastscroll_thumb_default_holo=0x7f02000b;
-        public static final int fastscroll_thumb_holo=0x7f02000c;
-        public static final int fastscroll_thumb_pressed_holo=0x7f02000d;
-        public static final int ic_launcher=0x7f02000e;
-        public static final int instruction=0x7f02000f;
-        public static final int listview_background=0x7f020010;
-        public static final int logout=0x7f020011;
-        public static final int priority=0x7f020012;
-        public static final int remove=0x7f020013;
-        public static final int selector=0x7f020014;
-        public static final int text_background=0x7f020015;
+        public static final int deselector=0x7f02000b;
+        public static final int fastscroll_thumb_default_holo=0x7f02000c;
+        public static final int fastscroll_thumb_holo=0x7f02000d;
+        public static final int fastscroll_thumb_pressed_holo=0x7f02000e;
+        public static final int ic_launcher=0x7f02000f;
+        public static final int instruction=0x7f020010;
+        public static final int listview_background=0x7f020011;
+        public static final int logout=0x7f020012;
+        public static final int priority=0x7f020013;
+        public static final int remove=0x7f020014;
+        public static final int selector=0x7f020015;
+        public static final int text_background=0x7f020016;
     }
     public static final class id {
         public static final int action_settings=0x7f09003e;

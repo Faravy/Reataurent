@@ -113,10 +113,13 @@ public class TableSelectionActivity extends Activity {
 							tableRow = new TableRow(getApplicationContext());
 							layout.addView(tableRow);
 						}
+						TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT,1);
+
 						final OrderButton btnTable = new OrderButton(getApplicationContext());
 						btnTable.setId((i));
 						btnTable.setIntId(tableId);
 						btnTable.setText(tableName);
+						btnTable.setLayoutParams(params);
 						btnTable.setTextColor(Color.parseColor("#FFFFFF"));
 						btnTable.setBackgroundResource((R.drawable.selector));						
 						btnTable.setOnClickListener(new View.OnClickListener() {

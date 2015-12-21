@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import nerdcastle.faravy.adapter.AddonsListAdapter;
+import nerdcastle.faravy.adapter.ImageAdapter;
 import nerdcastle.faravy.info.AppController;
 import nerdcastle.faravy.info.Order;
 import nerdcastle.faravy.info.OrderButton;
@@ -32,9 +33,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -54,16 +57,27 @@ public class Itemfragment extends Fragment {
 	JSONArray jsonArray;
 	JSONArray addonArray;
 	Button addOns;
-	Button send;
 	Button bckCategory;
 	View layout;
-	ArrayList<String> itemList;
+	ArrayList<String> itemNameList;
 	ArrayList<Double> itemPriceList;
+	ArrayList<Integer> itemIdList;
+	ArrayList<String> isOptionsAvailableList;
+	ArrayList<Double> hrPriceList;
+	ArrayList<Double> cpuList;
+	ArrayList<String> hhAppicableList;
+	ArrayList<String> isOptionpriceList;
+	ArrayList<Integer> counts=new ArrayList<>();
+
 	ArrayList<String> addonsNameList;
 	ArrayList<Double> addonsPriceList;
 	ArrayList<String> addonsiDList;
 	int i;
 	String baseUrl;
+	GridView gridView;
+	private  int c = 0;
+	private  int lastClickedItem = -1;
+
 	
 
 	@Override
@@ -74,8 +88,9 @@ public class Itemfragment extends Fragment {
 				false);
 		 addOns = (Button) rootView.findViewById(R.id.addOn);
 		 bckCategory = (Button) rootView.findViewById(R.id.bckCategory);
-		 
+
 		 tableLayout = (TableLayout)rootView.findViewById(R.id.categoryItem);
+		//gridView = (GridView)rootView.findViewById(R.id.categoryItem);
 		
 		 SessionManager session=new SessionManager(getActivity());
 		 baseUrl=session.getUserData();
@@ -93,21 +108,22 @@ public class Itemfragment extends Fragment {
 			});
 			
 			bckCategory.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					
-					FragmentManager fm=getFragmentManager();
-			        FragmentTransaction ft=fm.beginTransaction();
-			        CategoryFragment myFragment=new CategoryFragment();
-			        ft.replace(R.id.fragment,myFragment);
-			        ft.addToBackStack(null);
-			        ft.commit();
-					
+
+					FragmentManager fm = getFragmentManager();
+					FragmentTransaction ft = fm.beginTransaction();
+					CategoryFragment myFragment = new CategoryFragment();
+					ft.replace(R.id.fragment, myFragment);
+					ft.addToBackStack(null);
+					ft.commit();
+
 				}
 			});
 		 
-			showItem( categoryId);
+			showItem(categoryId);
+	//	showItemWithGrid(categoryId);
 	    
 		return rootView;
 
@@ -420,7 +436,7 @@ public class Itemfragment extends Fragment {
 					@Override
 					public void onResponse(String response) {
 						try {
-							itemList=new ArrayList<String>();
+							itemNameList =new ArrayList<String>();
 							itemPriceList=new ArrayList<Double>();
 							jsonArray = new JSONArray(response);
 							for (int i = 0; i < jsonArray.length(); i++) {
@@ -432,13 +448,13 @@ public class Itemfragment extends Fragment {
 								final String isOptionsAvailable = jsonArray
 										.getJSONObject(i).getString(
 												"IsOptionsAvailable");
-								final Integer price=jsonArray.getJSONObject(i).getInt("Item_RegularPrice");
+								final double price=jsonArray.getJSONObject(i).getInt("Item_RegularPrice");
 								final double hrPrice=jsonArray.getJSONObject(i).getDouble("Item_HHPrice");
 								final double cpu=jsonArray.getJSONObject(i).getDouble("CPU");
 								final String hhAppicable=jsonArray.getJSONObject(i).getString("HHApplicable");
 								final String isOptionprice=jsonArray.getJSONObject(i).getString("IsOptionsPrice");
 								
-								
+
 
 								if (i % 2 == 0) {
 									tableRow = new TableRow(
@@ -446,66 +462,54 @@ public class Itemfragment extends Fragment {
 									tableLayout.addView(tableRow);
 								}
 
-							  final OrderButton  orderBtn = new OrderButton(
-									  getActivity());
+								TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT,1);
+
+							   final OrderButton  orderBtn = new OrderButton(getActivity());
 								orderBtn.setId(i);
 								orderBtn.setIntId(itemId);
 								orderBtn.setText(itemName);
-								orderBtn.setTextColor(Color
-										.parseColor("#FFFFFF"));
+								orderBtn.setLayoutParams(params);
+								orderBtn.setTextColor(Color.parseColor("#FFFFFF"));
 								orderBtn.setBackgroundResource((R.drawable.selector));
-								
+
 								orderBtn.setOnClickListener(new OnClickListener() {
 									int check = 1;
-									
+
 
 									@Override
 									public void onClick(View v) {
+
 										v.setSelected(true);
+										v.setBackgroundResource(R.drawable.selector);
+										((OrderButton) v).setText(itemName+" - "+check);
+											check++;
 										enabledButton = orderBtn.getId();
-										deselectButtons();										 
+										//deselectButtons();
 										if (isOptionsAvailable.equals("Y")) {
-											
-											FragmentManager fm=getFragmentManager();
-									        FragmentTransaction ft=fm.beginTransaction();
-									        OptionSelectionFragment myFragment=new OptionSelectionFragment();
-									        ft.replace(R.id.fragment,myFragment);
-									        ft.addToBackStack(null);
-									        ft.commit();
-									        Order.getInstance().setItemId(itemId);
-											
-										} 
-													
-											 if(check == 1){
-											       v.setBackgroundResource(R.drawable.selector);
-												       //itemNameList.add(itemName);
-													//itemPriceList.add(price);
-													check = 0;
-											    }else{
-											       v.setBackgroundResource(R.drawable.buttontable);
-											       check = 1;
-											       //itemNameList.remove(itemName);
-											       //itemPriceList.remove(price);
-											    }
-											 
-											 TempSales.getInstance().setItemID(itemId);
-											 TempSales.getInstance().setItemName(itemName);
-											 TempSales.getInstance().setIsHappyHourPrice(hhAppicable);
-											 TempSales.getInstance().setHrPrice(hrPrice);
-											 TempSales.getInstance().setCpu(cpu);
-											 TempSales.getInstance().setIsOptionprice(isOptionprice);
-											 TempSales.getInstance().setItem_RegularPrice(price);
-											 TempSales.getInstance().setIsOptionAvailable(isOptionsAvailable);
-											 
-											 
-										
-									   // Order.getInstance().setItemList(itemNameList);
-										//Order.getInstance().setItemPriceList(itemPriceList);
-										
-											 sendItemInfo();
-											
+
+											FragmentManager fm = getFragmentManager();
+											FragmentTransaction ft = fm.beginTransaction();
+											OptionSelectionFragment myFragment = new OptionSelectionFragment();
+											ft.replace(R.id.fragment, myFragment);
+											ft.addToBackStack(null);
+											ft.commit();
+											Order.getInstance().setItemId(itemId);
+
 										}
-									
+
+										TempSales.getInstance().setItemID(itemId);
+										TempSales.getInstance().setItemName(itemName);
+										TempSales.getInstance().setIsHappyHourPrice(hhAppicable);
+										TempSales.getInstance().setHrPrice(hrPrice);
+										TempSales.getInstance().setCpu(cpu);
+										TempSales.getInstance().setIsOptionprice(isOptionprice);
+										TempSales.getInstance().setItem_RegularPrice(price);
+										TempSales.getInstance().setIsOptionAvailable(isOptionsAvailable);
+
+										sendItemInfo();
+									}
+
+
 								});
 
 								tableRow.addView(orderBtn);
@@ -523,6 +527,107 @@ public class Itemfragment extends Fragment {
 
 					}
 				});
+
+		AppController.getInstance().addToRequestQueue(stringrequest);
+	}
+
+	private void showItemWithGrid(String categoryId){
+		StringRequest stringrequest = new StringRequest(Method.GET,
+				baseUrl+getItemByCategory
+						+ categoryId, new Response.Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				try {
+
+					itemNameList = new ArrayList<String>();
+					itemPriceList = new ArrayList<Double>();
+					itemIdList=new ArrayList<>();
+					isOptionsAvailableList=new ArrayList<>();
+					hrPriceList=new ArrayList<>();
+					cpuList=new ArrayList<>();
+					hhAppicableList=new ArrayList<>();
+					isOptionpriceList=new ArrayList<>();
+
+					jsonArray = new JSONArray(response);
+
+					for (int i = 0; i < jsonArray.length(); i++) {
+
+						String itemName = jsonArray.getJSONObject(i).getString("Item_name");
+						int itemId = jsonArray.getJSONObject(i).getInt("Item_id");
+						String isOptionsAvailable = jsonArray.getJSONObject(i).getString("IsOptionsAvailable");
+						double price = jsonArray.getJSONObject(i).getDouble("Item_RegularPrice");
+						double hrPrice = jsonArray.getJSONObject(i).getDouble("Item_HHPrice");
+						double cpu = jsonArray.getJSONObject(i).getDouble("CPU");
+						String hhAppicable = jsonArray.getJSONObject(i).getString("HHApplicable");
+						String isOptionprice = jsonArray.getJSONObject(i).getString("IsOptionsPrice");
+
+						itemNameList.add(itemName);
+						itemIdList.add(itemId);
+						itemPriceList.add(price);
+						isOptionsAvailableList.add(isOptionsAvailable);
+						hrPriceList.add(hrPrice);
+						cpuList.add(cpu);
+						hhAppicableList.add(hhAppicable);
+						isOptionpriceList.add(isOptionprice);
+					}
+
+					gridView.setAdapter(new ImageAdapter(getActivity(), itemNameList));
+
+					gridView.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+							if (isOptionsAvailableList.get(position).equals("Y")) {
+
+								FragmentManager fm = getFragmentManager();
+								FragmentTransaction ft = fm.beginTransaction();
+								OptionSelectionFragment myFragment = new OptionSelectionFragment();
+								ft.replace(R.id.fragment, myFragment);
+								ft.addToBackStack(null);
+								ft.commit();
+								Order.getInstance().setItemId(itemIdList.get(position));
+							}
+
+						/* if (lastClickedItem != position) {
+								c = 0;
+							}
+							c++;
+
+							((TextView) view).setText((itemNameList.get(position) + " - " + c));
+							lastClickedItem = position;
+							view.setSelected(true);*/
+
+
+
+							TempSales.getInstance().setItemID(itemIdList.get(position));
+							TempSales.getInstance().setItemName(itemNameList.get(position));
+							TempSales.getInstance().setIsHappyHourPrice(hhAppicableList.get(position));
+							TempSales.getInstance().setHrPrice(hrPriceList.get(position));
+							TempSales.getInstance().setCpu(cpuList.get(position));
+							TempSales.getInstance().setIsOptionprice(isOptionpriceList.get(position));
+							TempSales.getInstance().setItem_RegularPrice(itemPriceList.get(position));
+							TempSales.getInstance().setIsOptionAvailable(isOptionsAvailableList.get(position));
+
+							sendItemInfo();
+						}
+					});
+
+
+				} catch (JSONException e) {
+
+					e.printStackTrace();
+				}
+			}
+
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError arg0) {
+
+			}
+		});
 
 		AppController.getInstance().addToRequestQueue(stringrequest);
 	}
@@ -619,11 +724,6 @@ public class Itemfragment extends Fragment {
 	AppController.getInstance().addToRequestQueue(stringRequest);
 	//Log.i("URL", stringRequest.toString());
 		
-	}
-	
-	private void onBackPressed(){
-	   // getActivity().onBackPressed();
-	   
 	}
 
 	private void warning(String message){

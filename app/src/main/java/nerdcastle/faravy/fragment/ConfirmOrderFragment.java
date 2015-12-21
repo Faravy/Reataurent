@@ -386,36 +386,35 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 		});
 		
 		add.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				addItem(mPosition);
 				dialog.dismiss();
-				
-				
-				
+
+
 			}
 		});
 		
         remove.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				removeItem(mPosition);				
+				removeItem(mPosition);
 				dialog.dismiss();
-						
+
 			}
 		});
         
         delete.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				
-				deleteItem(mPosition);	
+
+				deleteItem(mPosition);
 				dialog.dismiss();
-				
-				
+
+
 			}
 		});
         
@@ -439,6 +438,11 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 			public void onClick(DialogInterface dialog, int which) {
 
 				String priority = input.getText().toString().trim();
+
+				if (priority.equals("0")|| priority.equals("")){
+					warning("Invalid Number");
+					return;
+				}
 				sendPriority(position, priority);
 			}
 		});
@@ -447,10 +451,10 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				sendPriority(position, "");
+				//sendPriority(position, "");
+				dialog.dismiss();
 			}
 		});
-
 
 		builder.show();
 	}
@@ -519,22 +523,33 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 	    final EditText input = new EditText(getActivity());
 	    input.setInputType(InputType.TYPE_CLASS_NUMBER);
 	    builder.setView(input);
-	    builder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
-	        @Override
-	        public void onClick(DialogInterface dialog, int which) {
-	          additemNo(position,input.getText().toString());
-	        }
-	    });
+	    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				String quantity = input.getText().toString().trim();
+
+				if (quantity.equals("0") || quantity.equals("")) {
+					warning("Invalid Number");
+					return;
+				}
+				additemNo(position, quantity);
+			}
+		});
+
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
 	    builder.show();
-		
-		
 	}
 
 	protected void additemNo(int position,String quantity) {
 		
 		String option=ModifyOrder.getInstance().getOptionsIdList().get(position);
-		
-		//Toast.makeText(getActivity(), option, 1000).show();
+
 		Log.i("option", option);
 		
 		if (option.length()==0){	
@@ -545,21 +560,18 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 				      +"&"+"qty="+quantity
         		      +"&"+"UserId="+TempSales.getInstance().getWaiterId()      		
         		      +"&"+"ItemSL="+String.valueOf(ModifyOrder.getInstance().getItemSLList().get(position));
-		        
-		
-		
+
 		StringRequest stringRequest=new StringRequest(Method.POST, baseUrl+"/dc/Api/Sales/UpdateTempItemAddons?"+data.replaceAll(" ","%20"),
 			new Response.Listener<String>() {
 
 		@Override
 		public void onResponse(String response) {
-			//Toast.makeText(getActivity(),response.toString(), 1000).show();
+
 			try {
 				JSONObject jsonObj= new JSONObject(response);
 				boolean result= jsonObj.getBoolean("ResultState");
 				if(result==true){
-					showData();					
-					
+					showData();
 				}
 					
 			} catch (JSONException e) {
@@ -1152,7 +1164,6 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				sendInstruction(position);
-
 			}
 
 			private void sendInstruction(int position) {
@@ -1163,8 +1174,6 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 
 					instruction += TempOptionData.instructionName.get(i) + " ! ";
 				}
-				//Toast.makeText(getActivity(), String.valueOf(TempOptionData.insIndexList), Toast.LENGTH_SHORT).show();
-
 
 				String data = "UserId=" + TempSales.getInstance().getWaiterId()
 						+ "&" + "orderno=" + TempSales.getInstance().getOrderNo()
@@ -1174,8 +1183,6 @@ public class ConfirmOrderFragment extends Fragment implements OnClickListener{
 						+ "&" + "itemId=" + ModifyOrder.getInstance().getItemIdList().get(position)
 						+ "&" + "itemSl=" + String.valueOf(ModifyOrder.getInstance().getItemSLList().get(position))
 						+ "&" + "InsIndex=" + TempOptionData.insIndexList;
-
-				//Toast.makeText(getActivity(),ModifyOrder.getInstance().getItemIdList().get(position)+"and"+String.valueOf(ModifyOrder.getInstance().getItemSLList().get(position)),Toast.LENGTH_LONG).show();
 
 				StringRequest stringrequest = new StringRequest(Method.POST,
 						baseUrl + "/dc/Api/Sales/UpdateKitchenInstructions?" + data.replaceAll(" ", "%20"),

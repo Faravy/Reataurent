@@ -9,18 +9,18 @@
         <dex dex="E:\Restaurent\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-ca5e86f9e9f30570b93d942abfb3526d386518b6.jar" />
     </item>
     <item
-        jar="E:\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="E:\Restaurent\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-abdea0359f0e05be7d478ed15f4e04968fbe785d.jar" />
-    </item>
-    <item
         jar="E:\Restaurent\app\libs\volley.jar"
         jumboMode="false"
         revision="23.0.0"
         sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
         <dex dex="E:\Restaurent\app\build\intermediates\pre-dexed\debug\volley-1eccb4b34e3b7a53c206d9585a53f2481948b04d.jar" />
+    </item>
+    <item
+        jar="E:\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="E:\Restaurent\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-abdea0359f0e05be7d478ed15f4e04968fbe785d.jar" />
     </item>
     <item
         jar="E:\Restaurent\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"

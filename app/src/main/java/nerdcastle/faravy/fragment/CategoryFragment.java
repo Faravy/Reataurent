@@ -1,4 +1,5 @@
 package nerdcastle.faravy.fragment;
+import nerdcastle.faravy.adapter.ImageAdapter;
 import nerdcastle.faravy.info.AppController;
 import nerdcastle.faravy.info.OrderButton;
 import nerdcastle.faravy.info.SessionManager;
@@ -18,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -25,6 +28,8 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+
+import java.util.ArrayList;
 
 public class CategoryFragment extends Fragment {
 	TableLayout tableLayout;
@@ -35,6 +40,9 @@ public class CategoryFragment extends Fragment {
 	View rootView;
 	String baseUrl;
 	private ProgressDialog proDialog;
+	GridView gridView;
+	ArrayList<String> categoryNameList;
+	ArrayList<String> categoryIdList;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,8 +50,9 @@ public class CategoryFragment extends Fragment {
 
 		rootView = inflater.inflate(R.layout.fragment_category, container,
 				false);		
-		tableLayout = (TableLayout)rootView.findViewById(R.id.categoryItem);
-		tableLayout.removeAllViews();
+		//tableLayout = (TableLayout)rootView.findViewById(R.id.categoryItem);
+		gridView=(GridView)rootView.findViewById(R.id.categoryItem);
+		//tableLayout.removeAllViews();
 		SessionManager session=new SessionManager(getActivity());
 		
 		proDialog = new ProgressDialog(getActivity());
@@ -51,10 +60,69 @@ public class CategoryFragment extends Fragment {
         proDialog.setCancelable(true);
 		
         baseUrl=session.getUserData();
-		showCatagory();
+		//showCatagory();
+		showWithGrid();
 		return rootView;
 
 }
+
+	private void showWithGrid() {
+		proDialog.show();
+
+		StringRequest stringrequest = new StringRequest(Method.GET,
+				baseUrl + getAllCategory,
+				new Response.Listener<String>() {
+					@Override
+					public void onResponse(String response) {
+						try {
+							categoryNameList =new ArrayList<>();
+							categoryIdList=new ArrayList<>();
+
+							jsonArray = new JSONArray(response);
+							for (int i = 0; i < jsonArray.length(); i++) {
+
+								String name = jsonArray.getJSONObject(i)
+										.getString("Category_Name");
+								String categoryid = jsonArray.getJSONObject(i)
+										.getString("Category_Id");
+								categoryNameList.add(name);
+								categoryIdList.add(categoryid);
+							}
+
+								gridView.setAdapter(new ImageAdapter(getActivity(), categoryNameList));
+								gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+									@Override
+									public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+										view.setSelected(true);
+
+										TempSales.getInstance().setCategoryId(categoryIdList.get(position));
+										FragmentManager fm=getFragmentManager();
+										FragmentTransaction ft=fm.beginTransaction();
+										Itemfragment myFragment=new Itemfragment();
+										ft.replace(R.id.fragment,myFragment);
+										ft.addToBackStack(null);
+										ft.commit();
+									}
+								});
+
+
+							proDialog.dismiss();
+
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+				}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError arg0) {
+				proDialog.dismiss();
+
+			}
+		});
+		AppController.getInstance().addToRequestQueue(stringrequest);
+	}
+
 
 
 	private void showCatagory() {

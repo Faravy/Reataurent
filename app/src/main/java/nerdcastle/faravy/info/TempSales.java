@@ -18,7 +18,7 @@ public class TempSales {
 	private double hrPrice;
 	private double cpu;
 	private String isOptionprice;
-	private int item_RegularPrice;
+	private double item_RegularPrice;
 	private String isOptionAvailable;
 	private String addonsName;
 	private String addonsId;
@@ -117,7 +117,7 @@ public class TempSales {
 		return item_RegularPrice;
 	}
 
-	public void setItem_RegularPrice(int item_RegularPrice) {
+	public void setItem_RegularPrice(double item_RegularPrice) {
 		this.item_RegularPrice = item_RegularPrice;
 	}
 

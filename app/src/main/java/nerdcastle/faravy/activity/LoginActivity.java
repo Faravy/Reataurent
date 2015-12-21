@@ -37,6 +37,7 @@ public class LoginActivity extends Activity {
 	String login = "/dc/Api/Login/CheckWaiter?waiterid=";
 	String baseUrl;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -200,5 +201,6 @@ public class LoginActivity extends Activity {
 		});
 		builder.create().show();
 	}
+
 
 }
